@@ -18,33 +18,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SubscriptionQueue extends QueueWorkerBase implements ContainerFactoryPluginInterface
 {
-    public const ID = 'wmsubscription_queue';
+    public const ID = 'wmsubscription_subscriptions';
 
     /** @var SubscriptionManagerInterface */
     protected $manager;
 
-    public function __construct(
-        array $configuration,
-        $pluginId,
-        $pluginDefinition,
-        SubscriptionManagerInterface $manager
-    ) {
-        parent::__construct($configuration, $pluginId, $pluginDefinition);
-        $this->manager = $manager;
-    }
-
     public static function create(
-        ContainerInterface $ctr,
+        ContainerInterface $container,
         array $configuration,
         $pluginId,
         $pluginDefinition
     ) {
-        return new static(
-            $configuration,
-            $pluginId,
-            $pluginDefinition,
-            $ctr->get('wmsubscription.manager.direct')
-        );
+        $instance = new static($configuration, $pluginId, $pluginDefinition);
+        $instance->manager = $container->get('wmsubscription.manager.direct');
+
+        return $instance;
     }
 
     public function processItem($item)
