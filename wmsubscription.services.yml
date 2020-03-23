@@ -1,0 +1,23 @@
+services:
+    plugin.manager.wmsubscription:
+        class: Drupal\wmsubscription\SubscriptionToolManager
+        parent: default_plugin_manager
+
+    wmsubscription.manager:
+        parent: wmsubscription.manager.direct
+
+    wmsubscription.manager.direct:
+        class: Drupal\wmsubscription\SubscriptionManager
+        arguments:
+            - '@config.factory'
+            - '@plugin.manager.wmsubscription'
+
+    wmsubscription.manager.queued:
+        class: Drupal\wmsubscription\SubscriptionManagerQueued
+        parent: wmsubscription.manager.direct
+        arguments:
+            - '@queue'
+
+    wmsubscription.queue.unique_subscription:
+        class: Drupal\wmsubscription\QueueDatabase\UniqueSubscriptionQueueFactory
+        parent: queue.database

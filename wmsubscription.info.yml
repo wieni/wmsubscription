@@ -1,0 +1,6 @@
+name: wmsubscription
+type: module
+description: Provides a common interface for managing email marketing platform subscriptions.
+core: 8.x
+package: Wieni
+dependencies: {  }

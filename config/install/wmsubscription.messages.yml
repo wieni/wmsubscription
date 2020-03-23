@@ -1,0 +1,7 @@
+success: 'Thank you for signing up for our newsletter, check your inbox for the confirmation email.'
+already_subscribed: 'This email address is already subscribed to the newsletter.'
+email_unconfirmed: 'This email address is already subscribed to the newsletter. Please check your mailbox to confirm your subscription.'
+email_invalid: 'This email address is not valid.'
+email_rejected: "Cannot subscribe this email address to the newsletter."
+validation_failed: "There's a problem with some of the information you entered."
+error_generic: 'An unknown error happened. Please contact the site administrator.'
