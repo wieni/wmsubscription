@@ -6,5 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2020-03-23
+### Added
+- Add label property to annotation
+- Add setting forms, permissions & menu items
+- Add `AlreadyQueuedException` instead of generic `AlreadySubscribedException`
+
+### Changed
+- Refactor queue & change queue name
+- Lower `drupal/core` version constraint
+
+### Fixed
+- Remove default subscription tool
+
 ## [1.0.0] - 2020-03-23
 Initial release
