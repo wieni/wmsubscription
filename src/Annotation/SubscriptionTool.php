@@ -9,4 +9,11 @@ use Drupal\Component\Annotation\Plugin;
  */
 class SubscriptionTool extends Plugin
 {
+    /** @var string */
+    protected $label;
+
+    public function getLabel()
+    {
+        return $this->definition['label'];
+    }
 }
