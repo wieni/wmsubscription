@@ -1,0 +1,15 @@
+wmsubscription.settings.form:
+    path: '/admin/config/services/subscription'
+    defaults:
+        _form: 'Drupal\wmsubscription\Form\SettingsForm'
+        _title: 'Settings'
+    requirements:
+        _permission: 'administer wmsubscription settings'
+
+wmsubscription.messages.form:
+    path: '/admin/config/services/subscription/messages'
+    defaults:
+        _form: 'Drupal\wmsubscription\Form\MessagesForm'
+        _title: 'Messages'
+    requirements:
+        _permission: 'administer wmsubscription messages'

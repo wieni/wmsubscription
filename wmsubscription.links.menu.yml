@@ -1,0 +1,18 @@
+wmsubscription:
+    title: Subscriptions
+    route_name: <nolink>
+    description: 'Settings related to email marketing platform subscriptions'
+    parent: system.admin_config_services
+    weight: 99
+
+wmsubscription.settings.form:
+    title: Settings
+    route_name: wmsubscription.settings.form
+    description: 'Change general settings'
+    parent: wmsubscription
+
+wmsubscription.messages.form:
+    title: Messages
+    route_name: wmsubscription.messages.form
+    description: 'Change the confirmation and error messages to be shown to the user'
+    parent: wmsubscription

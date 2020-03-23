@@ -1,0 +1,36 @@
+wmsubscription.settings:
+    type: config_object
+    label: Settings
+    mapping:
+        manager:
+            type: string
+            label: 'The service to use for managing subscriptions'
+        tool:
+            type: string
+            label: 'The provider to submit subscriptions to'
+
+wmsubscription.messages:
+    type: config_object
+    label: Messages
+    mapping:
+        success:
+            type: label
+            label: 'Success'
+        already_subscribed:
+            type: label
+            label: 'Already subscribed'
+        email_unconfirmed:
+            type: label
+            label: 'Already subscribed, but not yet confirmed'
+        email_invalid:
+            type: label
+            label: 'Email address is invalid'
+        email_rejected:
+            type: label
+            label: 'Email address is rejected'
+        validation_failed:
+            type: label
+            label: 'Validation failed'
+        error_generic:
+            type: label
+            label: 'Unknown error'
