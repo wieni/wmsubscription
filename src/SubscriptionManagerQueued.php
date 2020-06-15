@@ -8,7 +8,6 @@ use Drupal\wmsubscription\Exception\AlreadyQueuedException;
 use Drupal\wmsubscription\Exception\AlreadySubscribedException;
 use Drupal\wmsubscription\Plugin\QueueWorker\SubscriptionQueue;
 use Drupal\wmsubscription\QueueDatabase\UniqueSubscriptionQueue;
-use InvalidArgumentException;
 use RuntimeException;
 
 class SubscriptionManagerQueued extends SubscriptionManager
@@ -25,15 +24,11 @@ class SubscriptionManagerQueued extends SubscriptionManager
     ) {
         parent::__construct($configFactory, $toolManager);
         $this->queue = $queueFactory->get(SubscriptionQueue::ID);
-
-        if (!$this->queue instanceof UniqueSubscriptionQueue) {
-            throw new InvalidArgumentException('The subscription queue is not configured to be unique. Please add the following to settings.php: "$settings[\'queue_service_wmsubscription_subscriptions\'] = \'wmsubscription.queue.unique_subscription\';"');
-        }
     }
 
     public function addSubscriber(ListInterface $list, PayloadInterface $payload, string $operation = self::OPERATION_CREATE_OR_UPDATE): void
     {
-        if ($this->queue->hasItem([$list, $payload, $operation])) {
+        if ($this->queue instanceof UniqueSubscriptionQueue && $this->queue->hasItem([$list, $payload, $operation])) {
             throw new AlreadyQueuedException;
         }
 
@@ -50,7 +45,11 @@ class SubscriptionManagerQueued extends SubscriptionManager
 
     public function isSubscribed(ListInterface $list, PayloadInterface $payload): bool
     {
-        return $this->queue->hasItem([$list, $payload])
-            || parent::isSubscribed($list, $payload);
+        if ($this->queue instanceof UniqueSubscriptionQueue) {
+            return $this->queue->hasItem([$list, $payload])
+                || parent::isSubscribed($list, $payload);
+        }
+
+        return parent::isSubscribed($list, $payload);
     }
 }
