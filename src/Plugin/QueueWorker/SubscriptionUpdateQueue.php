@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @QueueWorker(
- *   id = \Drupal\wmsubscription\Plugin\QueueWorker\UnsubscriptionQueue::ID,
+ *   id = \Drupal\wmsubscription\Plugin\QueueWorker\SubscriptionUpdateQueue::ID,
  *   title = @Translation("Subscription updates"),
  *   cron = {"time" = 30}
  * )
