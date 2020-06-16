@@ -12,6 +12,7 @@ use Drupal\wmsubscription\Plugin\QueueWorker\SubscriptionUpdateQueue;
 use Drupal\wmsubscription\Plugin\QueueWorker\UnsubscriptionQueue;
 use Drupal\wmsubscription\QueueDatabase\UniqueSubscriptionQueue;
 use RuntimeException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SubscriptionManagerQueued extends SubscriptionManager
 {
@@ -25,11 +26,12 @@ class SubscriptionManagerQueued extends SubscriptionManager
     protected $manager;
 
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         ConfigFactoryInterface $configFactory,
         SubscriptionToolManager $toolManager,
         QueueFactory $queueFactory
     ) {
-        parent::__construct($configFactory, $toolManager);
+        parent::__construct($eventDispatcher, $configFactory, $toolManager);
         $this->subscriptionQueue = $queueFactory->get(SubscriptionQueue::ID);
         $this->subscriptionUpdateQueue = $queueFactory->get(SubscriptionUpdateQueue::ID);
         $this->unsubscriptionQueue = $queueFactory->get(UnsubscriptionQueue::ID);

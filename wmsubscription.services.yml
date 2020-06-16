@@ -9,6 +9,7 @@ services:
     wmsubscription.manager.direct:
         class: Drupal\wmsubscription\SubscriptionManager
         arguments:
+            - '@event_dispatcher'
             - '@config.factory'
             - '@plugin.manager.wmsubscription'
 
