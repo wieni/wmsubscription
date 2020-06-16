@@ -22,6 +22,14 @@ interface SubscriptionToolInterface
     public function addSubscriber(ListInterface $list, PayloadInterface $payload, string $operation = self::OPERATION_CREATE_OR_UPDATE): void;
 
     /**
+     * Get all information about a list subscriber.
+     *
+     * @param ListInterface $list
+     * @param PayloadInterface $payload
+     */
+    public function getSubscriber(ListInterface $list, PayloadInterface $payload): ?PayloadInterface;
+
+    /**
      * Check if someone is already subscribed to a list.
      *
      * @param ListInterface $list

@@ -36,6 +36,11 @@ class SubscriptionManager implements SubscriptionManagerInterface, SubscriptionE
         $this->getSubscriptionTool()->addSubscriber($list, $payload);
     }
 
+    public function getSubscriber(ListInterface $list, PayloadInterface $payload): ?PayloadInterface
+    {
+        return $this->getSubscriptionTool()->getSubscriber($list, $payload);
+    }
+
     public function isSubscribed(ListInterface $list, PayloadInterface $payload): bool
     {
         return $this->getSubscriptionTool()->isSubscribed($list, $payload);
