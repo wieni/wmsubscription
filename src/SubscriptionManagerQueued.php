@@ -4,16 +4,23 @@ namespace Drupal\wmsubscription;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\QueueInterface;
 use Drupal\wmsubscription\Exception\AlreadyQueuedException;
 use Drupal\wmsubscription\Exception\AlreadySubscribedException;
 use Drupal\wmsubscription\Plugin\QueueWorker\SubscriptionQueue;
+use Drupal\wmsubscription\Plugin\QueueWorker\SubscriptionUpdateQueue;
+use Drupal\wmsubscription\Plugin\QueueWorker\UnsubscriptionQueue;
 use Drupal\wmsubscription\QueueDatabase\UniqueSubscriptionQueue;
 use RuntimeException;
 
 class SubscriptionManagerQueued extends SubscriptionManager
 {
-    /** @var UniqueSubscriptionQueue */
-    protected $queue;
+    /** @var QueueInterface */
+    protected $subscriptionQueue;
+    /** @var QueueInterface */
+    protected $subscriptionUpdateQueue;
+    /** @var QueueInterface */
+    protected $unsubscriptionQueue;
     /** @var SubscriptionManager */
     protected $manager;
 
@@ -23,12 +30,14 @@ class SubscriptionManagerQueued extends SubscriptionManager
         QueueFactory $queueFactory
     ) {
         parent::__construct($configFactory, $toolManager);
-        $this->queue = $queueFactory->get(SubscriptionQueue::ID);
+        $this->subscriptionQueue = $queueFactory->get(SubscriptionQueue::ID);
+        $this->subscriptionUpdateQueue = $queueFactory->get(SubscriptionUpdateQueue::ID);
+        $this->unsubscriptionQueue = $queueFactory->get(UnsubscriptionQueue::ID);
     }
 
     public function addSubscriber(ListInterface $list, PayloadInterface $payload, string $operation = self::OPERATION_CREATE_OR_UPDATE): void
     {
-        if ($this->queue instanceof UniqueSubscriptionQueue && $this->queue->hasItem([$list, $payload, $operation])) {
+        if ($this->subscriptionQueue instanceof UniqueSubscriptionQueue && $this->subscriptionQueue->hasItem([$list, $payload, $operation])) {
             throw new AlreadyQueuedException;
         }
 
@@ -36,7 +45,7 @@ class SubscriptionManagerQueued extends SubscriptionManager
             throw new AlreadySubscribedException;
         }
 
-        $status = $this->queue->createItem([$list, $payload, $operation]);
+        $status = $this->subscriptionQueue->createItem([$list, $payload, $operation]);
 
         if ($status === false) {
             throw new RuntimeException('wmsubscription: Error while adding subscription to queue.');
@@ -45,11 +54,29 @@ class SubscriptionManagerQueued extends SubscriptionManager
 
     public function isSubscribed(ListInterface $list, PayloadInterface $payload): bool
     {
-        if ($this->queue instanceof UniqueSubscriptionQueue) {
-            return $this->queue->hasItem([$list, $payload])
+        if ($this->subscriptionQueue instanceof UniqueSubscriptionQueue) {
+            return $this->subscriptionQueue->hasItem([$list, $payload])
                 || parent::isSubscribed($list, $payload);
         }
 
         return parent::isSubscribed($list, $payload);
+    }
+
+    public function onUnsubscribe(ListInterface $list, PayloadInterface $payload): void
+    {
+        $status = $this->unsubscriptionQueue->createItem([$list, $payload]);
+
+        if ($status === false) {
+            throw new RuntimeException('wmsubscription: Error while adding unsubscription to queue.');
+        }
+    }
+
+    public function onSubscriberUpdate(ListInterface $list, PayloadInterface $payload): void
+    {
+        $status = $this->subscriptionUpdateQueue->createItem([$list, $payload]);
+
+        if ($status === false) {
+            throw new RuntimeException('wmsubscription: Error while adding subscription update to queue.');
+        }
     }
 }
