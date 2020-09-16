@@ -1,0 +1,7 @@
+success: 'Bedankt voor het aanmelden voor onze nieuwsbrief, controleer uw inbox voor de bevestigingsmail.'
+already_subscribed: 'Dit e-mailadres is al ingeschreven voor de nieuwsbrief.'
+email_unconfirmed: 'Dit e-mailadres is al ingeschreven voor de nieuwsbrief. Controleer uw mailbox om uw inschrijving te bevestigen.'
+email_invalid: 'Dit e-mailadres is niet geldig.'
+email_rejected: 'Kan dit e-mailadres niet aanmelden voor de nieuwsbrief.'
+validation_failed: "Er is een probleem met een deel van de informatie die je hebt ingevoerd."
+error_generic: 'Er is een onbekende fout opgetreden. Neem contact op met de sitebeheerder.'
