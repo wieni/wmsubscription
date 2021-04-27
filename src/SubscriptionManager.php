@@ -3,6 +3,7 @@
 namespace Drupal\wmsubscription;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\wmsubscription\Event\SubscriberEventBase;
 use Drupal\wmsubscription\Event\SubscriberUpdateEvent;
 use Drupal\wmsubscription\Event\UnsubscribeEvent;
 use Drupal\wmsubscription\Exception\AlreadySubscribedException;
@@ -27,13 +28,13 @@ class SubscriptionManager implements SubscriptionManagerInterface, SubscriptionE
         $this->toolManager = $toolManager;
     }
 
-    public function addSubscriber(ListInterface $list, PayloadInterface $payload, string $operation = self::OPERATION_CREATE_OR_UPDATE): void
+    public function addSubscriber(ListInterface $list, PayloadInterface $payload, array $tags, string $operation = self::OPERATION_CREATE_OR_UPDATE): void
     {
         if ($operation === self::OPERATION_CREATE && $this->isSubscribed($list, $payload)) {
             throw new AlreadySubscribedException;
         }
 
-        $this->getSubscriptionTool()->addSubscriber($list, $payload);
+        $this->getSubscriptionTool()->addSubscriber($list, $payload, $tags);
     }
 
     public function getSubscriber(ListInterface $list, PayloadInterface $payload): ?PayloadInterface

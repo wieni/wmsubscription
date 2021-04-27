@@ -19,7 +19,7 @@ interface SubscriptionToolInterface
      *
      * @throws AlreadySubscribedException
      */
-    public function addSubscriber(ListInterface $list, PayloadInterface $payload, string $operation = self::OPERATION_CREATE_OR_UPDATE): void;
+    public function addSubscriber(ListInterface $list, PayloadInterface $payload, array $tags, string $operation = self::OPERATION_CREATE_OR_UPDATE): void;
 
     /**
      * Get all information about a list subscriber.

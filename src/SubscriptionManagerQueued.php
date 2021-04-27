@@ -37,7 +37,7 @@ class SubscriptionManagerQueued extends SubscriptionManager
         $this->unsubscriptionQueue = $queueFactory->get(UnsubscriptionQueue::ID);
     }
 
-    public function addSubscriber(ListInterface $list, PayloadInterface $payload, string $operation = self::OPERATION_CREATE_OR_UPDATE): void
+    public function addSubscriber(ListInterface $list, PayloadInterface $payload, array $tags, string $operation = self::OPERATION_CREATE_OR_UPDATE): void
     {
         if ($this->subscriptionQueue instanceof UniqueSubscriptionQueue && $this->subscriptionQueue->hasItem([$list, $payload, $operation])) {
             throw new AlreadyQueuedException;
