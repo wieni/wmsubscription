@@ -50,13 +50,16 @@ $settings['queue_service_wmsubscription_subscriptions'] = 'wmsubscription.queue.
 
 ### Dead Letter Queue integration
 This module provides a submodule that can be used to combine the functionality of the 
-[Dead Letter Queue module](https://github.com/wieni/dead_letter_queue) with the unique subscription queue. 
+[Dead Letter Queue module](https://github.com/wieni/dead_letter_queue) with the unique subscription queue:
+`wmsubscription_dead_letter_queue`. 
 
 To enable this feature, use the following snippet in your `settings.php` instead of the one mentioned 
 above:
 ```php
 $settings['queue_service_wmsubscription_subscriptions'] = 'wmsubscription_dead_letter_queue.queue.database';
 ```
+
+To add support for the Dead Letter Queue UI module as well, enable the `wmsubscription_dead_letter_queue_ui` module.
 
 ## Changelog
 All notable changes to this project will be documented in the
