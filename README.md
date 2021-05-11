@@ -44,9 +44,18 @@ so make sure cron is executed regularly.
 To make sure visitors cannot subscribe the same email address while the 
 previous operation is still in queue, this module provides a custom queue 
 database implementation checking for duplicates. To enable the custom implementation, add the following snippet to your `settings.php`:
-
 ```php
 $settings['queue_service_wmsubscription_subscriptions'] = 'wmsubscription.queue.unique_subscription';
+```
+
+### Dead Letter Queue integration
+This module provides a submodule that can be used to combine the functionality of the 
+[Dead Letter Queue module](https://github.com/wieni/dead_letter_queue) with the unique subscription queue. 
+
+To enable this feature, use the following snippet in your `settings.php` instead of the one mentioned 
+above:
+```php
+$settings['queue_service_wmsubscription_subscriptions'] = 'wmsubscription_dead_letter_queue.queue.database';
 ```
 
 ## Changelog
