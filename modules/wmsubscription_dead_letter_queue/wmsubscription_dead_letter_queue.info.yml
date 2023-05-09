@@ -2,8 +2,7 @@ name: wmsubscription_dead_letter_queue
 type: module
 description: Adds support for the Dead Letter Queue module to wmsubscription
 package: Wieni
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
     - drupal:system (>= 8.5)
     - dead_letter_queue
