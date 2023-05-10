@@ -54,16 +54,16 @@ class SubscriptionManager implements SubscriptionManagerInterface, SubscriptionE
     public function onUnsubscribe(ListInterface $list, PayloadInterface $payload): void
     {
         $this->eventDispatcher->dispatch(
-            WmsubscriptionEvents::UNSUBSCRIBE,
-            new UnsubscribeEvent($list, $payload)
+            new UnsubscribeEvent($list, $payload),
+            WmsubscriptionEvents::UNSUBSCRIBE
         );
     }
 
     public function onSubscriberUpdate(ListInterface $list, PayloadInterface $payload): void
     {
         $this->eventDispatcher->dispatch(
-            WmsubscriptionEvents::SUBSCRIBER_UPDATE,
-            new SubscriberUpdateEvent($list, $payload)
+            new SubscriberUpdateEvent($list, $payload),
+            WmsubscriptionEvents::SUBSCRIBER_UPDATE
         );
     }
 
