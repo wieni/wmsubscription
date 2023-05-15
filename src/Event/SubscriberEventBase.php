@@ -2,7 +2,7 @@
 
 namespace Drupal\wmsubscription\Event;
 
-use Drupal\Component\EventDispatcher\Event
+use Drupal\Component\EventDispatcher\Event;
 use Drupal\wmsubscription\ListInterface;
 use Drupal\wmsubscription\PayloadInterface;
 
