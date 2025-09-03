@@ -4,7 +4,7 @@ namespace Drupal\wmsubscription\Event;
 
 use Drupal\wmsubscription\ListInterface;
 use Drupal\wmsubscription\PayloadInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class SubscriberEventBase extends Event
 {
