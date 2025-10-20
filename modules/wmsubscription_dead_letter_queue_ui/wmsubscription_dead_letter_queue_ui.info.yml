@@ -2,7 +2,7 @@ name: wmsubscription_dead_letter_queue_ui
 type: module
 description: Adds support for the Dead Letter Queue UI module to wmsubscription
 package: Wieni
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^9 || ^10 || ^11
 dependencies:
     - dead_letter_queue_ui
     - wmsubscription
