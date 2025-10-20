@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.5.0] - 2025-09-03
 ### Added
 - Add Drupal 11 support
+  - Add `queue_factory` tag to the `wmsubscription_dead_letter_queue.queue.database` service
 
 ## [1.4.0] - 2025-09-03
 ### Added
