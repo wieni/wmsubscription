@@ -2,3 +2,5 @@ services:
     wmsubscription_dead_letter_queue.queue.database:
         class: Drupal\wmsubscription_dead_letter_queue\QueueDatabase\UniqueDeadLetterDatabaseQueueFactory
         parent: dead_letter_queue.queue.database
+        tags:
+            - queue_factory
